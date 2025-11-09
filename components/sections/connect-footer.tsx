@@ -1,45 +1,10 @@
 "use client";
 
-import { Mail, Github, Linkedin, Calendar } from "lucide-react";
-import portfolioConfig from "@/config/portfolio";
+import { Particles } from "@/components/ui/shadcn-io/particles/index";
+import { getConnections } from "@/config/connections";
 
 export default function ConnectFooter() {
-    const { email, social } = portfolioConfig.personal;
-
-    const connections = [
-        {
-            name: "Email",
-            icon: Mail,
-            href: `mailto:${email}`,
-            label: email,
-            description: "Drop me a message",
-            color: "hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:border-blue-300 dark:hover:border-blue-700",
-        },
-        {
-            name: "GitHub",
-            icon: Github,
-            href: social.github,
-            label: "@ayushjaipuriyar",
-            description: "Check out my code",
-            color: "hover:bg-gray-50 dark:hover:bg-gray-900/30 hover:border-gray-300 dark:hover:border-gray-700",
-        },
-        {
-            name: "LinkedIn",
-            icon: Linkedin,
-            href: social.linkedin,
-            label: "Connect with me",
-            description: "Let's network",
-            color: "hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:border-blue-300 dark:hover:border-blue-700",
-        },
-        ...(social.meetingLink ? [{
-            name: "Schedule Meeting",
-            icon: Calendar,
-            href: social.meetingLink,
-            label: "Book a time slot",
-            description: "Let's have a chat",
-            color: "hover:bg-green-50 dark:hover:bg-green-950/30 hover:border-green-300 dark:hover:border-green-700",
-        }] : []),
-    ];
+    const connections = getConnections();
 
     return (
         <footer id="connect" className="w-full py-16 px-4 bg-gradient-to-b from-transparent to-muted/20">
@@ -62,7 +27,17 @@ export default function ConnectFooter() {
                                 rel={connection.name !== "Email" ? "noopener noreferrer" : undefined}
                                 className={`group relative overflow-hidden rounded-xl border-2 border-border bg-card p-6 transition-all duration-300 ${connection.color} hover:shadow-lg hover:-translate-y-1`}
                             >
-                                <div className="flex flex-col items-center text-center space-y-4">
+                                {/* Interactive particles */}
+                                <Particles
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                    quantity={50}
+                                    ease={80}
+                                    staticity={50}
+                                    color={connection.particleColor}
+                                    size={0.6}
+                                />
+
+                                <div className="relative z-10 flex flex-col items-center text-center space-y-4">
                                     <div className="p-4 rounded-full bg-muted group-hover:scale-110 transition-transform duration-300">
                                         <Icon className="w-8 h-8" />
                                     </div>

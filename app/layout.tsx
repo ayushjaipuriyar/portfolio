@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import portfolioConfig from "@/config/portfolio";
 import { GlobalDockNav } from "@/components/navigation/dock-wrapper";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -74,12 +75,13 @@ export const metadata: Metadata = {
     },
     icons: {
         icon: [
-            { url: "/favicon.ico", sizes: "any" },
-            { url: "/logo.ico", sizes: "48x48", type: "image/x-icon" },
+            { url: "/favicon.ico", sizes: "48x48" },
+            { url: "/favicon.svg", type: "image/svg+xml" },
+            { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
         ],
         shortcut: "/favicon.ico",
         apple: [
-            { url: "/apple-icon", sizes: "180x180", type: "image/png" },
+            { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
         ],
     },
     manifest: "/manifest.json",
@@ -128,20 +130,28 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <head>
+                <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+                />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
             </head>
-            <body className={`${inter.className} bg-grid-pattern`}>
+            <body className={`${inter.className} bg-grid-pattern relative`}>
+                <BackgroundBeams className="fixed inset-0 z-0" />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange={false}
                 >
-                    <GlobalDockNav />
-                    {children}
+                    <div className="relative z-10">
+                        <GlobalDockNav />
+                        {children}
+                    </div>
                 </ThemeProvider>
                 {gaId && <GoogleAnalytics gaId={gaId} />}
             </body>

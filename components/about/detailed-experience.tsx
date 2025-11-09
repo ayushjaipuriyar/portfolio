@@ -44,8 +44,8 @@ export function DetailedExperience({ experience }: DetailedExperienceProps) {
                 </h2>
 
                 <div className="relative">
-                    {/* Timeline line */}
-                    <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-border md:left-1/2" />
+                    {/* Timeline line - hidden on mobile */}
+                    <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-border" />
 
                     {/* Timeline items */}
                     <div className="space-y-12">
@@ -55,13 +55,13 @@ export function DetailedExperience({ experience }: DetailedExperienceProps) {
                                 className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                                     }`}
                             >
-                                {/* Timeline dot */}
-                                <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center">
+                                {/* Timeline dot - hidden on mobile */}
+                                <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center">
                                     <div className="w-4 h-4 rounded-full bg-primary ring-4 ring-background" />
                                 </div>
 
                                 {/* Content */}
-                                <div className={`flex-1 pl-20 md:pl-0 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
+                                <div className={`flex-1 md:pl-0 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
                                     <div className="bg-card border-2 border-border rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
                                         {/* Header */}
                                         <div className="mb-4">

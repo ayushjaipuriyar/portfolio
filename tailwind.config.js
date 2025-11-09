@@ -65,6 +65,16 @@ module.exports = {
 			},
 			spacing: {
 				'safe': 'env(safe-area-inset-bottom)',
+			},
+			keyframes: {
+				meteor: {
+					'0%': { transform: 'rotate(145deg) translateX(0)', opacity: '0.7' },
+					'70%': { opacity: '1' },
+					'100%': { transform: 'rotate(145deg) translateX(-500px)', opacity: '0' }
+				}
+			},
+			animation: {
+				meteor: 'meteor 0.1s linear infinite'
 			}
 		}
 	},

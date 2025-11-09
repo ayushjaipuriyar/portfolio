@@ -1,33 +1,38 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { OpenToWorkBadge } from "@/components/open-to-work-badge";
 import { Badge } from '@/components/ui/badge';
+import { TechnologyBadge } from '@/components/ui/technology-badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ExternalLink, Github, Search, ArrowLeft, Star, CheckIcon, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { OpenToWorkBadge } from '@/components/open-to-work-badge';
-import { DockNav } from '@/components/navigation/dock-nav';
+import {
+    Card,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
     Tags,
-    TagsContent,
     TagsEmpty,
     TagsGroup,
     TagsInput,
     TagsItem,
     TagsList,
-    TagsTrigger,
-    TagsValue,
-} from '@/components/ui/shadcn-io/tags';
-
-const sections = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-];
+} from "@/components/ui/shadcn-io/tags";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+    ArrowLeft,
+    CheckIcon,
+    ExternalLink,
+    Github,
+    Search,
+    Star,
+    X,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 
 interface Project {
     id: string;
@@ -129,7 +134,6 @@ export function AllProjectsView({ projects }: AllProjectsViewProps) {
     return (
         <>
             <OpenToWorkBadge />
-            <DockNav sections={sections} />
             <div className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:px-24">
                 <div className="mx-auto max-w-7xl">
                     {/* Header */}
@@ -140,9 +144,12 @@ export function AllProjectsView({ projects }: AllProjectsViewProps) {
                                 Back to Home
                             </Button>
                         </Link>
-                        <h1 className="text-4xl font-bold sm:text-5xl mb-4">All Projects</h1>
+                        <h1 className="text-4xl font-bold sm:text-5xl mb-4">
+                            All Projects
+                        </h1>
                         <p className="text-muted-foreground text-lg">
-                            Explore all {projects.length} projects sorted by recently updated
+                            Explore all {projects.length} projects sorted by recently
+                            updated
                         </p>
                     </div>
 
@@ -168,7 +175,9 @@ export function AllProjectsView({ projects }: AllProjectsViewProps) {
                                 className="flex min-h-10 w-full items-center gap-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background cursor-pointer hover:bg-accent"
                             >
                                 {selected.length === 0 ? (
-                                    <span className="text-muted-foreground">Select technologies or tags...</span>
+                                    <span className="text-muted-foreground">
+                                        Select technologies or tags...
+                                    </span>
                                 ) : (
                                     selected.map((tag) => (
                                         <Badge
@@ -208,7 +217,10 @@ export function AllProjectsView({ projects }: AllProjectsViewProps) {
                                                     >
                                                         {tag.label}
                                                         {selected.includes(tag.id) && (
-                                                            <CheckIcon className="text-muted-foreground" size={14} />
+                                                            <CheckIcon
+                                                                className="text-muted-foreground"
+                                                                size={14}
+                                                            />
                                                         )}
                                                     </TagsItem>
                                                 ))}
@@ -219,8 +231,6 @@ export function AllProjectsView({ projects }: AllProjectsViewProps) {
                             )}
                         </div>
                     </div>
-
-
 
                     {/* Results Count */}
                     <div className="mb-4 text-sm text-muted-foreground">
@@ -239,7 +249,7 @@ export function AllProjectsView({ projects }: AllProjectsViewProps) {
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{
                                         duration: 0.3,
-                                        delay: Math.min(index * 0.05, 0.3)
+                                        delay: Math.min(index * 0.05, 0.3),
                                     }}
                                 >
                                     <ProjectCard project={project} />
@@ -255,14 +265,16 @@ export function AllProjectsView({ projects }: AllProjectsViewProps) {
                             animate={{ opacity: 1 }}
                             className="text-center py-16"
                         >
-                            <p className="text-lg text-muted-foreground mb-2">No projects found</p>
+                            <p className="text-lg text-muted-foreground mb-2">
+                                No projects found
+                            </p>
                             <p className="text-sm text-muted-foreground">
                                 Try adjusting your search or filters
                             </p>
                         </motion.div>
                     )}
                 </div>
-            </div >
+            </div>
         </>
     );
 }
@@ -346,13 +358,7 @@ function ProjectCard({ project }: { project: Project }) {
             <CardFooter className="p-4 pt-0 sm:p-6 sm:pt-0">
                 <div className="flex flex-wrap gap-1.5">
                     {project.technologies.slice(0, 4).map((tech) => (
-                        <Badge
-                            key={tech}
-                            variant="secondary"
-                            className="text-xs py-1 px-2"
-                        >
-                            {tech}
-                        </Badge>
+                        <TechnologyBadge key={tech} technology={tech} />
                     ))}
                     {project.tags?.slice(0, 3).map((tag) => (
                         <Badge

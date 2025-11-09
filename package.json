@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -46,7 +46,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.66.0",
-    "tailwind-merge": "^3.3.1",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.3",
     "zod": "^4.1.12"
@@ -56,13 +56,13 @@
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.2",
-    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/npm": "^13.1.1",
     "@semantic-release/release-notes-generator": "^14.0.1",
     "@types/node": "^24.10.0",
     "autoprefixer": "^10.4.21",
-    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
     "postcss": "^8.5.6",
-    "semantic-release": "^24.2.0",
+    "semantic-release": "^25.0.2",
     "tailwindcss": "^3.4.18",
     "ts-node": "^10.9.2"
   }

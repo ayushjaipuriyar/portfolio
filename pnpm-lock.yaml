@@ -97,8 +97,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(semantic-release@25.0.2(typescript@5.9.3))
       '@semantic-release/github':
-        specifier: ^11.0.0
-        version: 11.0.6(semantic-release@25.0.2(typescript@5.9.3))
+        specifier: ^12.0.2
+        version: 12.0.2(semantic-release@24.2.9(typescript@5.9.3))
       '@semantic-release/npm':
         specifier: ^13.1.1
         version: 13.1.1(semantic-release@25.0.2(typescript@5.9.3))
@@ -4400,10 +4400,10 @@ snapshots:
   undici-types@7.16.0: {}
 
   undici@5.29.0:
+
+  undici@7.16.0:
     dependencies:
       '@fastify/busboy': 2.1.1
-
-  undici@7.16.0: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 

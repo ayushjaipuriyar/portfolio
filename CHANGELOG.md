@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/ayushjaipuriyar/portfolio/compare/v1.0.0...v1.0.1) (2025-11-09)
+
+### 👷 CI/CD
+
+* **deps:** bump actions/upload-artifact from 4 to 5 ([013e3e1](https://github.com/ayushjaipuriyar/portfolio/commit/013e3e1ebb4623c7141a87f7d655a380d6a9acba))
+
 ## 1.0.0 (2025-11-09)
 
 ### ✨ Features

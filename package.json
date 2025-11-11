@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,6 @@
     "@hookform/resolvers": "^5.2.2",
     "@livekit/components-react": "^2.9.15",
     "@livekit/protocol": "^1.43.0",
-
     "@next/third-parties": "^16.0.1",
     "@octokit/graphql": "^9.0.3",
     "@phosphor-icons/react": "^2.1.10",

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface MeteorsProps {
   number?: number;
@@ -22,19 +22,16 @@ export const Meteors = ({
   angle = 215,
   className,
 }: MeteorsProps) => {
-  const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>(
-    [],
-  );
+  const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>([]);
 
   useEffect(() => {
     const styles = [...new Array(number)].map(() => ({
-      "--angle": -angle + "deg",
+      '--angle': -angle + 'deg',
       top: `${Math.floor(Math.random() * 100)}%`,
       left: `${Math.floor(Math.random() * 100)}%`,
-      animationDelay: Math.random() * (maxDelay - minDelay) + minDelay + "s",
+      animationDelay: Math.random() * (maxDelay - minDelay) + minDelay + 's',
       animationDuration:
-        Math.floor(Math.random() * (maxDuration - minDuration) + minDuration) +
-        "s",
+        Math.floor(Math.random() * (maxDuration - minDuration) + minDuration) + 's',
     }));
     setMeteorStyles(styles);
   }, [number, minDelay, maxDelay, minDuration, maxDuration, angle]);
@@ -47,8 +44,8 @@ export const Meteors = ({
           key={idx}
           style={{ ...style } as React.CSSProperties}
           className={cn(
-            "pointer-events-none absolute h-1 w-1 rotate-[215deg] animate-meteor rounded-full bg-primary/80 shadow-[0_0_0_1px_#ffffff10]",
-            className,
+            'pointer-events-none absolute h-1 w-1 rotate-[215deg] animate-meteor rounded-full bg-primary/80 shadow-[0_0_0_1px_#ffffff10]',
+            className
           )}
         >
           {/* Meteor Tail */}

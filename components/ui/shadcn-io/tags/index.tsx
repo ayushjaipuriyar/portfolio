@@ -1,16 +1,16 @@
 'use client';
 
-import { XIcon } from 'lucide-react';
 import {
   type ComponentProps,
-  createContext,
   type MouseEventHandler,
   type ReactNode,
+  createContext,
   useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import { XIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,11 +21,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
 type TagsContextType = {
@@ -41,7 +37,7 @@ const TagsContext = createContext<TagsContextType>({
   value: undefined,
   setValue: undefined,
   open: false,
-  onOpenChange: () => { },
+  onOpenChange: () => {},
   width: undefined,
   setWidth: undefined,
 });
@@ -97,9 +93,7 @@ export const Tags = ({
   }, []);
 
   return (
-    <TagsContext.Provider
-      value={{ value, setValue, open, onOpenChange, width, setWidth }}
-    >
+    <TagsContext.Provider value={{ value, setValue, open, onOpenChange, width, setWidth }}>
       <Popover onOpenChange={onOpenChange} open={open}>
         <div className={cn('relative w-full', className)} ref={ref}>
           {children}
@@ -111,11 +105,7 @@ export const Tags = ({
 
 export type TagsTriggerProps = ComponentProps<typeof Button>;
 
-export const TagsTrigger = ({
-  className,
-  children,
-  ...props
-}: TagsTriggerProps) => (
+export const TagsTrigger = ({ className, children, ...props }: TagsTriggerProps) => (
   <PopoverTrigger asChild>
     <Button
       className={cn('h-auto w-full justify-between p-2', className)}
@@ -126,9 +116,7 @@ export const TagsTrigger = ({
     >
       <div className="flex flex-wrap items-center gap-1">
         {children}
-        <span className="px-2 py-px text-muted-foreground">
-          Select a tag...
-        </span>
+        <span className="px-2 py-px text-muted-foreground">Select a tag...</span>
       </div>
     </Button>
   </PopoverTrigger>
@@ -167,19 +155,11 @@ export const TagsValue = ({
 
 export type TagsContentProps = ComponentProps<typeof PopoverContent>;
 
-export const TagsContent = ({
-  className,
-  children,
-  ...props
-}: TagsContentProps) => {
+export const TagsContent = ({ className, children, ...props }: TagsContentProps) => {
   const { width } = useTagsContext();
 
   return (
-    <PopoverContent
-      className={cn('p-0', className)}
-      style={{ width }}
-      {...props}
-    >
+    <PopoverContent className={cn('p-0', className)} style={{ width }} {...props}>
       <Command>{children}</Command>
     </PopoverContent>
   );
@@ -199,11 +179,7 @@ export const TagsList = ({ className, ...props }: TagsListProps) => (
 
 export type TagsEmptyProps = ComponentProps<typeof CommandEmpty>;
 
-export const TagsEmpty = ({
-  children,
-  className,
-  ...props
-}: TagsEmptyProps) => (
+export const TagsEmpty = ({ children, className, ...props }: TagsEmptyProps) => (
   <CommandEmpty {...props}>{children ?? 'No tags found.'}</CommandEmpty>
 );
 

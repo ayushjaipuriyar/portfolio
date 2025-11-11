@@ -113,7 +113,7 @@ const DEFAULT_PROJECT_IMAGE = '/images/projects/default.webp';
 function formatTitle(repoName: string): string {
   return repoName
     .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
 
@@ -139,11 +139,11 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
       n: limit,
     });
 
-    const repos = response.user.pinnedItems.nodes.filter(repo => !repo.isFork);
+    const repos = response.user.pinnedItems.nodes.filter((repo) => !repo.isFork);
 
     const projects: Project[] = repos.map((repo, index) => {
-      const technologies = repo.languages.nodes.map(lang => lang.name);
-      const tags = repo.repositoryTopics.nodes.map(t => t.topic.name);
+      const technologies = repo.languages.nodes.map((lang) => lang.name);
+      const tags = repo.repositoryTopics.nodes.map((t) => t.topic.name);
 
       return {
         id: `project-${index + 1}`,
@@ -189,11 +189,11 @@ export async function fetchAllGitHubProjects(): Promise<Project[]> {
       n: limit,
     });
 
-    const repos = response.user.repositories.nodes.filter(repo => !repo.isFork);
+    const repos = response.user.repositories.nodes.filter((repo) => !repo.isFork);
 
     const projects: Project[] = repos.map((repo) => {
-      const technologies = repo.languages.nodes.map(lang => lang.name);
-      const tags = repo.repositoryTopics.nodes.map(t => t.topic.name);
+      const technologies = repo.languages.nodes.map((lang) => lang.name);
+      const tags = repo.repositoryTopics.nodes.map((t) => t.topic.name);
 
       return {
         id: repo.name,

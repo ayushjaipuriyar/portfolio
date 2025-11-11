@@ -1,170 +1,172 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Theme Testing - Portfolio</title>
     <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
 
-        .test-section {
-            margin: 30px 0;
-            padding: 20px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-        }
+      .test-section {
+        margin: 30px 0;
+        padding: 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+      }
 
-        .test-section h2 {
-            margin-top: 0;
-            color: #333;
-        }
+      .test-section h2 {
+        margin-top: 0;
+        color: #333;
+      }
 
-        .status {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
+      .status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-weight: bold;
+        margin-left: 10px;
+      }
 
-        .pass {
-            background: #d4edda;
-            color: #155724;
-        }
+      .pass {
+        background: #d4edda;
+        color: #155724;
+      }
 
-        .fail {
-            background: #f8d7da;
-            color: #721c24;
-        }
+      .fail {
+        background: #f8d7da;
+        color: #721c24;
+      }
 
-        .pending {
-            background: #fff3cd;
-            color: #856404;
-        }
+      .pending {
+        background: #fff3cd;
+        color: #856404;
+      }
 
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
 
-        button:hover {
-            background: #0056b3;
-        }
+      button:hover {
+        background: #0056b3;
+      }
 
-        .result {
-            margin-top: 10px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            font-family: monospace;
-        }
+      .result {
+        margin-top: 10px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        font-family: monospace;
+      }
 
-        .checklist {
-            list-style: none;
-            padding: 0;
-        }
+      .checklist {
+        list-style: none;
+        padding: 0;
+      }
 
-        .checklist li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
+      .checklist li {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
 
-        .checklist li:before {
-            content: "☐ ";
-            margin-right: 8px;
-            font-size: 1.2em;
-        }
+      .checklist li:before {
+        content: '☐ ';
+        margin-right: 8px;
+        font-size: 1.2em;
+      }
 
-        .checklist li.checked:before {
-            content: "☑ ";
-            color: green;
-        }
+      .checklist li.checked:before {
+        content: '☑ ';
+        color: green;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Portfolio Theme System Testing</h1>
     <p>This page helps verify that the theme system meets all requirements (4.2-4.5)</p>
 
     <div class="test-section">
-        <h2>Requirement 4.3: LocalStorage Persistence</h2>
-        <p>Test that theme preference is saved to localStorage</p>
-        <button onclick="testLocalStorage()">Run Test</button>
-        <div id="localStorage-result" class="result" style="display:none;"></div>
+      <h2>Requirement 4.3: LocalStorage Persistence</h2>
+      <p>Test that theme preference is saved to localStorage</p>
+      <button onclick="testLocalStorage()">Run Test</button>
+      <div id="localStorage-result" class="result" style="display: none"></div>
     </div>
 
     <div class="test-section">
-        <h2>Requirement 4.4: Theme Loading on Refresh</h2>
-        <p>Test that theme loads correctly from localStorage</p>
-        <button onclick="testThemeLoad()">Check Current Theme</button>
-        <div id="theme-load-result" class="result" style="display:none;"></div>
+      <h2>Requirement 4.4: Theme Loading on Refresh</h2>
+      <p>Test that theme loads correctly from localStorage</p>
+      <button onclick="testThemeLoad()">Check Current Theme</button>
+      <div id="theme-load-result" class="result" style="display: none"></div>
     </div>
 
     <div class="test-section">
-        <h2>Requirement 4.5: System Preference Detection</h2>
-        <p>Test that system color scheme is detected when no preference exists</p>
-        <button onclick="testSystemPreference()">Check System Preference</button>
-        <button onclick="clearThemePreference()">Clear Preference</button>
-        <div id="system-pref-result" class="result" style="display:none;"></div>
+      <h2>Requirement 4.5: System Preference Detection</h2>
+      <p>Test that system color scheme is detected when no preference exists</p>
+      <button onclick="testSystemPreference()">Check System Preference</button>
+      <button onclick="clearThemePreference()">Clear Preference</button>
+      <div id="system-pref-result" class="result" style="display: none"></div>
     </div>
 
     <div class="test-section">
-        <h2>Requirement 4.2: Smooth Transitions (300ms)</h2>
-        <p>Manual verification: Toggle theme and observe transition smoothness</p>
-        <ul class="checklist">
-            <li>Navigate to portfolio in browser</li>
-            <li>Click theme toggle button</li>
-            <li>Verify colors transition smoothly within 300ms</li>
-            <li>Check that no jarring color changes occur</li>
-            <li>Test in both light → dark and dark → light directions</li>
-        </ul>
+      <h2>Requirement 4.2: Smooth Transitions (300ms)</h2>
+      <p>Manual verification: Toggle theme and observe transition smoothness</p>
+      <ul class="checklist">
+        <li>Navigate to portfolio in browser</li>
+        <li>Click theme toggle button</li>
+        <li>Verify colors transition smoothly within 300ms</li>
+        <li>Check that no jarring color changes occur</li>
+        <li>Test in both light → dark and dark → light directions</li>
+      </ul>
     </div>
 
     <div class="test-section">
-        <h2>Manual Testing Checklist</h2>
-        <ul class="checklist">
-            <li>Open portfolio in browser</li>
-            <li>Toggle theme using the button in navbar</li>
-            <li>Refresh page - theme should persist</li>
-            <li>Open DevTools → Application → Local Storage</li>
-            <li>Verify "theme" key exists with value "light" or "dark"</li>
-            <li>Clear localStorage and refresh</li>
-            <li>Verify theme matches system preference</li>
-            <li>Test all components in both themes</li>
-            <li>Verify smooth color transitions (300ms)</li>
-        </ul>
+      <h2>Manual Testing Checklist</h2>
+      <ul class="checklist">
+        <li>Open portfolio in browser</li>
+        <li>Toggle theme using the button in navbar</li>
+        <li>Refresh page - theme should persist</li>
+        <li>Open DevTools → Application → Local Storage</li>
+        <li>Verify "theme" key exists with value "light" or "dark"</li>
+        <li>Clear localStorage and refresh</li>
+        <li>Verify theme matches system preference</li>
+        <li>Test all components in both themes</li>
+        <li>Verify smooth color transitions (300ms)</li>
+      </ul>
     </div>
 
     <script>
-        function testLocalStorage() {
-            const resultDiv = document.getElementById('localStorage-result');
-            resultDiv.style.display = 'block';
+      function testLocalStorage() {
+        const resultDiv = document.getElementById('localStorage-result');
+        resultDiv.style.display = 'block';
 
-            // Simulate what next-themes does
-            const storageKey = 'theme';
-            const testValue = 'dark';
+        // Simulate what next-themes does
+        const storageKey = 'theme';
+        const testValue = 'dark';
 
-            try {
-                // Test write
-                localStorage.setItem(storageKey, testValue);
+        try {
+          // Test write
+          localStorage.setItem(storageKey, testValue);
 
-                // Test read
-                const retrieved = localStorage.getItem(storageKey);
+          // Test read
+          const retrieved = localStorage.getItem(storageKey);
 
-                if (retrieved === testValue) {
-                    resultDiv.innerHTML = `
+          if (retrieved === testValue) {
+            resultDiv.innerHTML = `
                         <strong>✓ PASS</strong><br>
                         Successfully wrote and read from localStorage<br>
                         Key: "${storageKey}"<br>
@@ -172,63 +174,64 @@
                         <br>
                         <em>Note: next-themes uses this mechanism automatically</em>
                     `;
-                } else {
-                    resultDiv.innerHTML = `<strong>✗ FAIL</strong><br>Value mismatch`;
-                }
-            } catch (e) {
-                resultDiv.innerHTML = `<strong>✗ FAIL</strong><br>Error: ${e.message}`;
-            }
+          } else {
+            resultDiv.innerHTML = `<strong>✗ FAIL</strong><br>Value mismatch`;
+          }
+        } catch (e) {
+          resultDiv.innerHTML = `<strong>✗ FAIL</strong><br>Error: ${e.message}`;
         }
+      }
 
-        function testThemeLoad() {
-            const resultDiv = document.getElementById('theme-load-result');
-            resultDiv.style.display = 'block';
+      function testThemeLoad() {
+        const resultDiv = document.getElementById('theme-load-result');
+        resultDiv.style.display = 'block';
 
-            const theme = localStorage.getItem('theme');
+        const theme = localStorage.getItem('theme');
 
-            if (theme) {
-                resultDiv.innerHTML = `
+        if (theme) {
+          resultDiv.innerHTML = `
                     <strong>✓ Theme Found</strong><br>
                     Current theme in localStorage: "${theme}"<br>
                     <br>
                     <em>This value should be applied on page load by next-themes</em>
                 `;
-            } else {
-                resultDiv.innerHTML = `
+        } else {
+          resultDiv.innerHTML = `
                     <strong>ℹ No Theme Stored</strong><br>
                     No theme preference found in localStorage<br>
                     System preference should be used instead
                 `;
-            }
         }
+      }
 
-        function testSystemPreference() {
-            const resultDiv = document.getElementById('system-pref-result');
-            resultDiv.style.display = 'block';
+      function testSystemPreference() {
+        const resultDiv = document.getElementById('system-pref-result');
+        resultDiv.style.display = 'block';
 
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
 
-            resultDiv.innerHTML = `
+        resultDiv.innerHTML = `
                 <strong>System Preferences Detected:</strong><br>
                 prefers-color-scheme: dark = ${prefersDark}<br>
                 prefers-color-scheme: light = ${prefersLight}<br>
                 <br>
                 <em>When no localStorage preference exists, next-themes will use this</em>
             `;
-        }
+      }
 
-        function clearThemePreference() {
-            localStorage.removeItem('theme');
-            alert('Theme preference cleared from localStorage.\nRefresh the portfolio to see system preference applied.');
-        }
+      function clearThemePreference() {
+        localStorage.removeItem('theme');
+        alert(
+          'Theme preference cleared from localStorage.\nRefresh the portfolio to see system preference applied.'
+        );
+      }
 
-        // Auto-run on load
-        window.addEventListener('load', () => {
-            testThemeLoad();
-            testSystemPreference();
-        });
+      // Auto-run on load
+      window.addEventListener('load', () => {
+        testThemeLoad();
+        testSystemPreference();
+      });
     </script>
-</body>
-
+  </body>
 </html>

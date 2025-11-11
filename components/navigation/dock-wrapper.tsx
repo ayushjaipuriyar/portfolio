@@ -1,3 +1,3 @@
-"use client";
+'use client';
 
-export { GlobalDockNav } from "./global-dock-nav";
+export { GlobalDockNav } from './global-dock-nav';

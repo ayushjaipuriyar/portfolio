@@ -1,7 +1,7 @@
-import { graphql } from '@octokit/graphql';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { graphql } from '@octokit/graphql';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,9 +39,11 @@ const gqlQuery = `
 async function fetchGitHubProjects(login, token) {
   try {
     const graphqlWithAuth = graphql.defaults({
-      headers: token ? {
-        authorization: `token ${token}`,
-      } : {},
+      headers: token
+        ? {
+            authorization: `token ${token}`,
+          }
+        : {},
     });
 
     const response = await graphqlWithAuth(gqlQuery, {
@@ -49,10 +51,10 @@ async function fetchGitHubProjects(login, token) {
       n: projectsLimit,
     });
 
-    const repos = response.user.pinnedItems.nodes.filter(repo => !repo.isFork);
+    const repos = response.user.pinnedItems.nodes.filter((repo) => !repo.isFork);
 
     const projects = repos.map((repo, index) => {
-      const technologies = repo.languages.nodes.map(lang => lang.name);
+      const technologies = repo.languages.nodes.map((lang) => lang.name);
 
       return {
         id: `project-${index + 1}`,
@@ -76,7 +78,7 @@ async function fetchGitHubProjects(login, token) {
 function formatTitle(repoName) {
   return repoName
     .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
 
@@ -106,7 +108,6 @@ try {
   const outputPath = path.join(__dirname, '..', 'github-projects.json');
   fs.writeFileSync(outputPath, JSON.stringify(projects, null, 2));
   console.log(`💾 Saved to: github-projects.json`);
-
 } catch (error) {
   console.error('\n❌ Error:', error.message);
   process.exit(1);

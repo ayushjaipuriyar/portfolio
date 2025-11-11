@@ -1,0 +1,89 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import { Mic } from "lucide-react";
+import { useState } from "react";
+
+// LiveKit starter-pack UI components
+import { SessionProvider, useSession } from "@/components/app/session-provider";
+import { ViewController } from "@/components/app/view-controller";
+import { Toaster } from "@/components/livekit/toaster";
+import type { PortfolioConfig } from "@/config/portfolio";
+import { RoomAudioRenderer, StartAudio } from "@livekit/components-react";
+
+export interface VoiceAssistantProps {
+	portfolioData: PortfolioConfig;
+	className?: string;
+}
+
+export function VoiceAssistant({
+	portfolioData,
+	className,
+}: VoiceAssistantProps) {
+	const [isOpen, setIsOpen] = useState(false);
+
+	// Minimal appConfig for starter UI. Adjust keys as needed.
+	const appConfig = {
+		startButtonText: "Start Conversation",
+		agentName: "portfolio-assistant",
+		isPreConnectBufferEnabled: true,
+		supportsChatInput: false,
+		supportsVideoInput: false,
+		sandboxId: undefined,
+	} as any;
+
+	function FloatingMicButton() {
+		const { startSession } = useSession();
+
+		return (
+			<Button
+				onClick={async () => {
+					setIsOpen(true);
+					try {
+						await startSession();
+					} catch (e) {
+						// ignore start errors; ViewController will surface errors
+					}
+				}}
+				size="lg"
+				className="fixed bottom-4 right-4 md:bottom-6 md:right-6 h-12 w-12 md:h-14 md:w-14 rounded-full shadow-lg hover:shadow-xl transition-shadow z-50 touch-manipulation"
+				aria-label="Open voice assistant"
+			>
+				<Mic className="h-5 w-5 md:h-6 md:w-6" />
+			</Button>
+		);
+	}
+
+	return (
+		<SessionProvider appConfig={appConfig}>
+			{/* Floating button uses starter session context to start the call */}
+			<FloatingMicButton />
+
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+				<DialogContent className="sm:max-w-3xl w-[95vw] max-w-[95vw] sm:w-auto mx-4 sm:mx-auto bottom-4 top-auto translate-y-0 sm:translate-y-[-50%] sm:top-[50%] fixed">
+					<DialogHeader>
+						<DialogTitle className="flex items-center gap-2 text-base md:text-lg">
+							Voice Assistant
+						</DialogTitle>
+					</DialogHeader>
+
+					{/* The starter ViewController contains Welcome and Session views and handles start/end flows */}
+					<div className="mt-2">
+						<ViewController />
+					</div>
+
+					{/* LiveKit helpers */}
+					<StartAudio label="Enable Audio" />
+					<RoomAudioRenderer />
+					<Toaster />
+				</DialogContent>
+			</Dialog>
+		</SessionProvider>
+	);
+}

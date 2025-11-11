@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: voice-agent-worker
+    runtime: node
+    buildCommand: "npm install -g pnpm && pnpm install --frozen-lockfile && npm run build"
+    startCommand: "node services/voice-agent/dist/index.js"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: VOICE_AGENT_STT_PROVIDER
+        value: assemblyai
+      - key: VOICE_AGENT_LLM_MODEL
+        value: gpt-4o-mini
+      - key: VOICE_AGENT_TTS_PROVIDER
+        value: openai
+    healthCheckPath: /health
+    disk:
+      name: voice-agent-data
+      mountPath: /data
+      sizeGB: 1

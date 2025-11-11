@@ -14,7 +14,7 @@ A modern, minimalistic portfolio website built with Next.js 14, TypeScript, and 
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -66,6 +66,42 @@ portfolio/
 - ✅ Dark/Light mode CSS variables
 - ✅ Image optimization configured
 - ✅ Responsive design ready
+- ✅ **Voice AI Assistant** - LiveKit-powered conversational agent
+
+## Voice Assistant
+
+This portfolio includes an integrated voice AI assistant powered by LiveKit Agents. The assistant can answer questions about experience, projects, skills, and provide contact information through natural voice conversations.
+
+### Setting up the Voice Assistant
+
+1. **Environment Variables**: Add LiveKit credentials to `.env.local`:
+   ```bash
+   LIVEKIT_API_KEY=your_api_key
+   LIVEKIT_API_SECRET=your_api_secret
+   LIVEKIT_URL=wss://your-project.livekit.cloud
+   ```
+
+2. **Start the Agent Worker**:
+   ```bash
+   cd agent-worker
+   pip install -r requirements.txt  # or uv sync
+   python src/agent.py dev
+   ```
+
+3. **Start the Website**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Test**: Click the microphone button and start a conversation!
+
+### Voice Agent Features
+
+- Real-time speech-to-text and text-to-speech
+- Contextual responses about portfolio content
+- Function tools for retrieving specific information
+- Multi-turn conversations with memory
+- Mobile-responsive voice interface
 
 ## License
 

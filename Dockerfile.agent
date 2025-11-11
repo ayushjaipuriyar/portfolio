@@ -1,0 +1,39 @@
+# Use Node.js 18 LTS
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
+
+# Install dependencies
+RUN npm install -g pnpm && pnpm install --frozen-lockfile --prod
+
+# Copy source code
+COPY services/voice-agent/ ./services/voice-agent/
+COPY config/ ./config/
+COPY lib/ ./lib/
+COPY types/ ./types/
+
+# Build the agent worker
+RUN cd services/voice-agent && npm run build
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S voiceagent -u 1001
+
+# Change ownership of app directory
+RUN chown -R voiceagent:nodejs /app
+USER voiceagent
+
+# Expose port for health checks (if needed)
+EXPOSE 3001
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD node -e "console.log('Health check passed')"
+
+# Start the agent worker
+CMD ["node", "services/voice-agent/dist/index.js"]

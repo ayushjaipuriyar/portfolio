@@ -1,0 +1,13 @@
+dist/
+docs/
+node_modules/
+pnpm-lock.yaml
+.next/
+.env*
+**/*venv/*
+**/*.py
+**/*.md
+**/*.json
+**/*.yaml
+**/*.yml
+**/*.log

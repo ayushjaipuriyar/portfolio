@@ -54,7 +54,7 @@ export function Education({ education }: EducationProps) {
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="mb-2 flex items-start gap-3">
-                    <GraduationCap className="mt-1 h-6 w-6 flex-shrink-0 text-primary" />
+                    <GraduationCap className="mt-1 h-6 w-6 shrink-0 text-primary" />
                     <div>
                       <h3 className="mb-1 text-xl font-bold">
                         {edu.degree} in {edu.field}
@@ -79,7 +79,7 @@ export function Education({ education }: EducationProps) {
                   </div>
                 </div>
                 {edu.current && (
-                  <Badge className="flex-shrink-0 bg-green-500 hover:bg-green-600">Current</Badge>
+                  <Badge className="shrink-0 bg-green-500 hover:bg-green-600">Current</Badge>
                 )}
               </div>
 

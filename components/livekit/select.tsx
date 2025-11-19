@@ -68,7 +68,7 @@ function SelectContent({
         className={cn(
           [
             'drop-shadow-xl/5 relative z-50 overflow-y-auto overflow-x-hidden rounded-md border bg-popover text-popover-foreground',
-            'max-h-(--radix-select-content-available-height) min-w-[8rem]',
+            'max-h-(--radix-select-content-available-height) min-w-32',
             'origin-(--radix-select-content-transform-origin)',
             'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
             'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
@@ -89,7 +89,7 @@ function SelectContent({
           className={cn(
             'p-1',
             position === 'popper' &&
-              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1'
+              'h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1'
           )}
         >
           {children}
@@ -123,7 +123,7 @@ function SelectItem({
           'outline-hidden relative flex w-full cursor-default select-none items-center gap-2 rounded-sm py-1.5 pl-2 pr-8 text-sm',
           'cursor-pointer disabled:cursor-not-allowed',
           'focus:bg-accent focus:text-accent-foreground',
-          'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+          'data-disabled:pointer-events-none data-disabled:opacity-50',
           '*:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2',
           "[&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
         ],

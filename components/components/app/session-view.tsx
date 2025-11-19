@@ -60,17 +60,19 @@ export function Fade({ top = false, bottom = false, className }: FadeProps) {
 }
 interface SessionViewProps {
   appConfig: AppConfig;
+  onDisconnect?: () => void;
 }
 
 export const SessionView = ({
   appConfig,
+  onDisconnect,
   ...props
-}: React.ComponentProps<'section'> & SessionViewProps) => {
+}: SessionViewProps & Omit<React.ComponentProps<'section'>, keyof SessionViewProps>) => {
   useConnectionTimeout(200_000);
   useDebugMode({ enabled: IN_DEVELOPMENT });
 
   const messages = useChatMessages();
-  const [chatOpen, setChatOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(true); // Start with chat open by default
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const controls: ControlBarControls = {
@@ -122,7 +124,11 @@ export const SessionView = ({
         )}
         <div className="relative mx-auto max-w-2xl bg-background pb-3 md:pb-12">
           <Fade bottom className="absolute inset-x-0 top-0 h-4 -translate-y-full" />
-          <AgentControlBar controls={controls} onChatOpenChange={setChatOpen} />
+          <AgentControlBar
+            controls={controls}
+            onChatOpenChange={setChatOpen}
+            onDisconnect={onDisconnect}
+          />
         </div>
       </MotionBottom>
     </section>

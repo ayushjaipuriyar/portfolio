@@ -14,7 +14,7 @@ from livekit.agents import (
     metrics,
 )
 from livekit.plugins import silero, deepgram, google
-
+import sys
 from portfolio_data import format_portfolio_for_agent, get_portfolio_data
 from function_tools import function_tools, execute_function_tool
 from config import config
@@ -198,4 +198,7 @@ async def entrypoint(ctx: JobContext):
 
 
 if __name__ == "__main__":
+    if not "download-files" in sys.argv:
+        config.validate()
+
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, prewarm_fnc=prewarm))

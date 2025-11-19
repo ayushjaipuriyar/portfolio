@@ -23,7 +23,7 @@ export function VoiceAssistant({ portfolioData, className }: VoiceAssistantProps
     startButtonText: 'Start Conversation',
     agentName: 'portfolio-assistant',
     isPreConnectBufferEnabled: true,
-    supportsChatInput: false,
+    supportsChatInput: true, // Enable chat input
     supportsVideoInput: false,
     sandboxId: undefined,
   } as any;
@@ -72,31 +72,47 @@ export function VoiceAssistant({ portfolioData, className }: VoiceAssistantProps
     );
   }
 
+  // Modal content that can access session context
+  function ModalContent() {
+    const { endSession } = useSession();
+
+    const handleClose = () => {
+      try {
+        endSession();
+      } catch (e) {
+        // ignore
+      }
+      setIsOpen(false);
+    };
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
+        <section className="relative z-10 mx-4 h-[85vh] w-[95vw] max-w-[95vw] overflow-hidden rounded-lg bg-background shadow-lg sm:mx-auto sm:w-auto sm:max-w-3xl">
+          <div className="absolute right-3 top-3 z-20">
+            <CloseControl />
+          </div>
+
+          <div className="h-full w-full">
+            <SessionView appConfig={appConfig} onDisconnect={handleClose} />
+          </div>
+
+          {/* LiveKit helpers */}
+          <StartAudio label="Enable Audio" />
+          <RoomAudioRenderer />
+          <Toaster />
+        </section>
+      </div>
+    );
+  }
+
   return (
     <SessionProvider appConfig={appConfig}>
       {/* Floating button uses starter session context to start the call */}
       <FloatingMicButton />
 
       {/* Inline session panel instead of modal. Render when isOpen. */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)} />
-          <section className="relative z-10 mx-4 h-[85vh] w-[95vw] max-w-[95vw] overflow-hidden rounded-lg bg-background shadow-lg sm:mx-auto sm:w-auto sm:max-w-3xl">
-            <div className="absolute right-3 top-3 z-20">
-              <CloseControl />
-            </div>
-
-            <div className="h-full w-full">
-              <SessionView appConfig={appConfig} />
-            </div>
-
-            {/* LiveKit helpers */}
-            <StartAudio label="Enable Audio" />
-            <RoomAudioRenderer />
-            <Toaster />
-          </section>
-        </div>
-      )}
+      {isOpen && <ModalContent />}
     </SessionProvider>
   );
 }

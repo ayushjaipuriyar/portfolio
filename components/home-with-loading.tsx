@@ -62,9 +62,6 @@ export function HomeWithLoading({ personalInfo, skills, projects }: HomeWithLoad
       {showLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
       <div className={showLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}>
-        <a href="#main-content" className="skip-to-content">
-          Skip to main content
-        </a>
         <OpenToWorkBadge />
         <main id="main-content">
           <Hero

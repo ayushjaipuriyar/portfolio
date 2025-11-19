@@ -270,7 +270,7 @@ function ProjectCard({ project }: { project: Project }) {
 
         {/* Overlay */}
         <div
-          className={`absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-linear-to-t from-background/90 via-background/50 to-transparent transition-opacity duration-300 ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -313,7 +313,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Card Content */}
-      <CardHeader className="flex-grow p-4 sm:p-6">
+      <CardHeader className="grow p-4 sm:p-6">
         <CardTitle className="text-lg sm:text-xl">{project.title}</CardTitle>
         <CardDescription className="line-clamp-3 text-sm">{project.description}</CardDescription>
         {project.updatedAt && (

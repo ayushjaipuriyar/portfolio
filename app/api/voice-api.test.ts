@@ -13,11 +13,11 @@ export const runVoiceTokenTests = () => {
   try {
     const apiKey = process.env.LIVEKIT_API_KEY;
     const apiSecret = process.env.LIVEKIT_API_SECRET;
-    const livekitUrl = process.env.NEXT_PUBLIC_LIVEKIT_URL;
+    const livekitUrl = process.env.LIVEKIT_URL;
 
     if (!apiKey) throw new Error('LIVEKIT_API_KEY is required');
     if (!apiSecret) throw new Error('LIVEKIT_API_SECRET is required');
-    if (!livekitUrl) throw new Error('NEXT_PUBLIC_LIVEKIT_URL is required');
+    if (!livekitUrl) throw new Error('LIVEKIT_URL is required');
 
     console.log('✅ Environment variables validation passed');
   } catch (error) {

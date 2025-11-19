@@ -14,7 +14,7 @@ export function ShimmerText({
   return (
     <span
       ref={ref}
-      className={cn('animate-text-shimmer inline-block !bg-clip-text text-transparent', className)}
+      className={cn('animate-text-shimmer inline-block bg-clip-text! text-transparent', className)}
     >
       {children}
     </span>

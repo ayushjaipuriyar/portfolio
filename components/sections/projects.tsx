@@ -229,7 +229,7 @@ function ProjectCard({ project }: { project: Project }) {
 
         {/* Overlay Gradient on Hover */}
         <div
-          className={`absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-linear-to-t from-background/90 via-background/50 to-transparent transition-opacity duration-300 ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         />

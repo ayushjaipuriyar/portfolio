@@ -80,7 +80,7 @@ export function About({ bio, skills }: AboutProps) {
 
           {/* What I'm Up To / Current Focus */}
           <ScrollReveal delay={0.3}>
-            <div className="space-y-4 rounded-lg border bg-gradient-to-br from-primary/5 to-primary/10 p-6">
+            <div className="space-y-4 rounded-lg border bg-linear-to-br from-primary/5 to-primary/10 p-6">
               <h3 className="flex items-center gap-2 text-lg font-semibold">
                 <span className="relative flex h-3 w-3">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>

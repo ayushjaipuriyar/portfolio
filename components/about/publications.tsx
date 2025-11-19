@@ -49,7 +49,7 @@ export function Publications() {
                 <div className="flex-1">
                   <div className="mb-3 flex items-start justify-between gap-4">
                     <h3 className="text-base font-bold leading-tight">{pub.title}</h3>
-                    <Badge className="flex-shrink-0 bg-green-500 text-xs hover:bg-green-600">
+                    <Badge className="shrink-0 bg-green-500 text-xs hover:bg-green-600">
                       {pub.status}
                     </Badge>
                   </div>

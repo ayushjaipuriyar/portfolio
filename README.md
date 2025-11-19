@@ -6,7 +6,7 @@ A modern, minimalistic portfolio website built with Next.js 14, TypeScript, and 
 
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS v3
+- **Styling**: Tailwind CSS v4
 - **UI Components**: shadcn/ui (to be added)
 - **Animations**: Framer Motion (to be added)
 
@@ -30,6 +30,15 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the portfolio in your browser.
+
+### Git Hooks
+
+This project uses Husky to run pre-commit and pre-push Git hooks for code quality:
+
+- **Pre-commit**: Runs ESLint to check code quality
+- **Pre-push**: Runs the build process to ensure everything compiles
+
+The hooks are automatically installed when you run `npm install` or `pnpm install`.
 
 ### Build
 

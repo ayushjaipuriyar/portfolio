@@ -7,7 +7,14 @@ import os
 from dotenv import load_dotenv
 from typing import Optional
 
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env.local"))
+# Try to load from .env.local first, then fall back to .env
+env_local_path = os.path.join(os.path.dirname(__file__), "..", ".env.local")
+env_path = os.path.join(os.path.dirname(__file__), "..", ".env")
+
+if os.path.exists(env_local_path):
+    load_dotenv(env_local_path)
+elif os.path.exists(env_path):
+    load_dotenv(env_path)
 
 
 class ConfigError(Exception):
@@ -27,7 +34,6 @@ class Config:
         self.NODE_ENV = os.getenv("NODE_ENV", "development")
         self.LOG_LEVEL = os.getenv("LOG_LEVEL", "info")
         self.PORT = int(os.getenv("PORT", "3001"))
-        self.validate()
 
     def validate(self):
         missing = []

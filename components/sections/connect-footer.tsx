@@ -9,7 +9,7 @@ export default function ConnectFooter() {
   return (
     <footer
       id="connect"
-      className="w-full bg-gradient-to-b from-transparent to-muted/20 px-4 py-16"
+      className="w-full bg-linear-to-b from-transparent to-muted/20 px-4 py-16"
     >
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">

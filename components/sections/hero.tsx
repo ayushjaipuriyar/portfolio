@@ -126,7 +126,7 @@ export function Hero({
         {/* Name with gradient */}
         <motion.h1
           variants={itemVariants}
-          className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+          className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
         >
           {name}
         </motion.h1>

@@ -1,2 +1,1 @@
-echo "Pre-commit checks passed"
-zs
+pnpm run lint

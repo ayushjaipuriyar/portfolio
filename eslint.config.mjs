@@ -1,19 +1,37 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const eslintConfig = [
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    extends: [
-      'next/core-web-vitals',
-      'next/typescript',
-      'plugin:import/recommended',
-      'prettier',
-      'plugin:prettier/recommended'
+    ignores: [
+      '.next/**',
+      'out/**',
+      'build/**',
+      'node_modules/**',
+      'components/components/**',
+      'agent-worker/**',
+      'scripts/**',
+      '*.config.js',
+      '*.config.mjs',
     ],
-  }
+  },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
+  {
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/ban-ts-comment': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn',
+    },
+  },
 ];
-
-export default eslintConfig;

@@ -13,6 +13,14 @@ const gqlQuery = `
             isFork
             updatedAt
             stargazerCount
+            owner {
+              login
+            }
+            previewImage: object(expression: "HEAD:assets/preview.png") {
+              ... on Blob {
+                oid
+              }
+            }
             languages(first: 20) {
               nodes {
                 name
@@ -44,6 +52,14 @@ const allReposQuery = `
           isFork
           updatedAt
           stargazerCount
+          owner {
+            login
+          }
+          previewImage: object(expression: "HEAD:assets/preview.png") {
+            ... on Blob {
+              oid
+            }
+          }
           languages(first: 20) {
             nodes {
               name
@@ -70,6 +86,12 @@ interface GitHubRepo {
   isFork: boolean;
   updatedAt: string;
   stargazerCount: number;
+  owner: {
+    login: string;
+  };
+  previewImage: {
+    oid: string;
+  } | null;
   languages: {
     nodes: Array<{ name: string }>;
   };
@@ -117,6 +139,13 @@ function formatTitle(repoName: string): string {
     .join(' ');
 }
 
+function getRepoImageUrl(owner: string, repoName: string, hasPreview: boolean): string {
+  if (hasPreview) {
+    return `https://raw.githubusercontent.com/${owner}/${repoName}/main/assets/preview.png`;
+  }
+  return DEFAULT_PROJECT_IMAGE;
+}
+
 export async function fetchGitHubProjects(): Promise<Project[]> {
   const token = process.env.GITHUB_TOKEN;
   const username = process.env.GITHUB_USERNAME || 'ayushjaipuriyar';
@@ -144,12 +173,13 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
     const projects: Project[] = repos.map((repo, index) => {
       const technologies = repo.languages.nodes.map((lang) => lang.name);
       const tags = repo.repositoryTopics.nodes.map((t) => t.topic.name);
+      const hasPreview = repo.previewImage !== null;
 
       return {
         id: `project-${index + 1}`,
         title: formatTitle(repo.name),
         description: repo.description || 'No description available',
-        image: DEFAULT_PROJECT_IMAGE,
+        image: getRepoImageUrl(repo.owner.login, repo.name, hasPreview),
         technologies: technologies.slice(0, 5),
         tags: tags,
         liveUrl: repo.homepageUrl || undefined,
@@ -194,12 +224,13 @@ export async function fetchAllGitHubProjects(): Promise<Project[]> {
     const projects: Project[] = repos.map((repo) => {
       const technologies = repo.languages.nodes.map((lang) => lang.name);
       const tags = repo.repositoryTopics.nodes.map((t) => t.topic.name);
+      const hasPreview = repo.previewImage !== null;
 
       return {
         id: repo.name,
         title: formatTitle(repo.name),
         description: repo.description || 'No description available',
-        image: DEFAULT_PROJECT_IMAGE,
+        image: getRepoImageUrl(repo.owner.login, repo.name, hasPreview),
         technologies: technologies,
         tags: tags,
         liveUrl: repo.homepageUrl || undefined,

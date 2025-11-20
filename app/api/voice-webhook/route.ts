@@ -1,19 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { WebhookReceiver } from 'livekit-server-sdk';
-
-// Webhook event types
-interface WebhookEvent {
-  event: string;
-  room?: {
-    name: string;
-    sid: string;
-  };
-  participant?: {
-    identity: string;
-    sid: string;
-  };
-  createdAt: number;
-}
+import { WebhookReceiver, WebhookEvent } from 'livekit-server-sdk';
 
 // Logger utility
 function logWebhookEvent(event: WebhookEvent, message: string) {
@@ -35,10 +21,11 @@ function logWebhookEvent(event: WebhookEvent, message: string) {
 export async function POST(req: NextRequest) {
   try {
     // Validate environment variables
+    const apiKey = process.env.LIVEKIT_API_KEY;
     const apiSecret = process.env.LIVEKIT_API_SECRET;
 
-    if (!apiSecret) {
-      console.error('Missing LIVEKIT_API_SECRET');
+    if (!apiKey || !apiSecret) {
+      console.error('Missing LIVEKIT_API_KEY or LIVEKIT_API_SECRET');
       return NextResponse.json(
         { success: false, message: 'Webhook service is not configured' },
         { status: 500 }
@@ -58,11 +45,11 @@ export async function POST(req: NextRequest) {
     }
 
     // Create webhook receiver and validate signature
-    const receiver = new WebhookReceiver(apiSecret);
+    const receiver = new WebhookReceiver(apiKey, apiSecret);
     let event: WebhookEvent;
 
     try {
-      event = receiver.receive(body, authHeader) as WebhookEvent;
+      event = await receiver.receive(body, authHeader);
     } catch (error) {
       console.error('Webhook signature validation failed:', error);
       return NextResponse.json(

@@ -1,3 +1,16 @@
+## [1.2.0](https://github.com/ayushjaipuriyar/portfolio/compare/v1.1.0...v1.2.0) (2025-11-21)
+
+### ✨ Features
+
+* add AI voice agent and optimize CI workflows ([44f1a06](https://github.com/ayushjaipuriyar/portfolio/commit/44f1a0661b95554acfdceb034f4c4139ce50b20f))
+* add AI voice agent and optimize CI workflows ([666240f](https://github.com/ayushjaipuriyar/portfolio/commit/666240fe794fa8971e27f169b886d08d796966f2))
+* ai agent ([559b79d](https://github.com/ayushjaipuriyar/portfolio/commit/559b79d2364cacb53a7bdf3de4b51e6d3820876d))
+* ai agent ([7102bf2](https://github.com/ayushjaipuriyar/portfolio/commit/7102bf2eee824b4cc350d34d9e7ed49ec5e7f7a1))
+
+### 🐛 Bug Fixes
+
+* add global type declaration for debug room ([a506b9a](https://github.com/ayushjaipuriyar/portfolio/commit/a506b9a3d3cbc1b432b4e92a08208b8b54d24d67))
+
 ## [1.1.0](https://github.com/ayushjaipuriyar/portfolio/compare/v1.0.2...v1.1.0) (2025-11-11)
 
 ### ✨ Features

@@ -12,8 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "fetch-projects": "ts-node scripts/fetch-github-projects.ts",
-    "prepare": "husky",
-    "postinstall": "husky"
+    "prepare": "husky || true"
   },
   "repository": {
     "type": "git",

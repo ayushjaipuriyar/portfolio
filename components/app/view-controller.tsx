@@ -29,7 +29,7 @@ const VIEW_MOTION_PROPS = {
 export function ViewController() {
   const room = useRoomContext();
   const isSessionActiveRef = useRef(false);
-  const { appConfig, isSessionActive, startSession } = useSession();
+  const { appConfig, isSessionActive } = useSession();
 
   // animation handler holds a reference to stale isSessionActive value
   isSessionActiveRef.current = isSessionActive;

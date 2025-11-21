@@ -15,11 +15,11 @@ export const useDebugMode = (options: { logLevel?: LogLevel; enabled?: boolean }
 
     setLogLevel(logLevel ?? 'debug');
 
-    // @ts-ignore this is a global variable
+    // @ts-expect-error - Attaching room to window for debugging
     window.__lk_room = room;
 
     return () => {
-      // @ts-ignore this is a global variable
+      // @ts-expect-error - Cleaning up debug room reference
       window.__lk_room = undefined;
       setLogLevel('silent');
     };

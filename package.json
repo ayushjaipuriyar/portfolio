@@ -28,7 +28,7 @@
   "homepage": "https://github.com/ayushjaipuriyar/portfolio#readme",
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@livekit/components-react": "^2.9.15",
+    "@livekit/components-react": "^2.9.16",
     "@livekit/protocol": "^1.43.0",
     "@next/third-parties": "16.0.3",
     "@octokit/graphql": "^9.0.3",

@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/ayushjaipuriyar/portfolio/compare/v1.2.0...v1.2.1) (2025-12-17)
+
+### 👷 CI/CD
+
+* **deps:** bump GitHub Actions versions ([08dde55](https://github.com/ayushjaipuriyar/portfolio/commit/08dde55e20f9d3e4e71e9c36921de69dd8c9cbe1))
+
 ## [1.2.0](https://github.com/ayushjaipuriyar/portfolio/compare/v1.1.0...v1.2.0) (2025-11-21)
 
 ### ✨ Features

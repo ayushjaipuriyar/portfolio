@@ -30,7 +30,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@livekit/components-react": "2.9.17",
     "@livekit/protocol": "1.43.4",
-    "@next/third-parties": "16.0.10",
+    "@next/third-parties": "16.1.0",
     "@octokit/graphql": "^9.0.3",
     "@phosphor-icons/react": "^2.1.10",
     "@radix-ui/react-dialog": "^1.1.15",

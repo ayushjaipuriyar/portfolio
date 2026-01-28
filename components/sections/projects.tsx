@@ -11,18 +11,17 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/comp
 import { RippleButton } from '@/components/ui/ripple-button';
 import {
   Tags,
-  TagsContent,
   TagsEmpty,
   TagsGroup,
   TagsInput,
   TagsItem,
   TagsList,
-  TagsTrigger,
-  TagsValue,
 } from '@/components/ui/shadcn-io/tags';
+import { slugify } from '@/lib/utils';
 
 export interface Project {
   id: string;
+  slug?: string;
   title: string;
   description: string;
   image: string;
@@ -33,6 +32,12 @@ export interface Project {
   featured?: boolean;
   updatedAt?: string;
   stargazerCount?: number;
+  caseStudy?: {
+    problem: string;
+    solution: string;
+    approach: string[];
+    results: string[];
+  };
 }
 
 interface ProjectsProps {
@@ -203,6 +208,8 @@ export function Projects({ projects, showViewAll = false, limit }: ProjectsProps
 
 function ProjectCard({ project }: { project: Project }) {
   const [isHovered, setIsHovered] = useState(false);
+  const projectSlug = project.slug || slugify(project.title);
+  const hasCaseStudy = Boolean(project.caseStudy);
 
   return (
     <Card
@@ -271,6 +278,16 @@ function ProjectCard({ project }: { project: Project }) {
         <CardDescription className="line-clamp-2 text-sm sm:text-base">
           {project.description}
         </CardDescription>
+        {hasCaseStudy && (
+          <Link
+            href={`/projects/${projectSlug}`}
+            className="mt-3 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+            aria-label={`Read case study for ${project.title}`}
+          >
+            Read case study
+            <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+          </Link>
+        )}
       </CardHeader>
 
       {/* Technology and Tag Badges */}

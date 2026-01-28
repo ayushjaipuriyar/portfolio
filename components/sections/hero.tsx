@@ -9,6 +9,7 @@ import portfolioConfig from '@/config/portfolio';
 
 interface HeroProps {
   name: string;
+  headline?: string;
   tagline: string;
   description: string;
   ctaText?: string;
@@ -18,12 +19,14 @@ interface HeroProps {
 
 export function Hero({
   name,
+  headline,
   tagline,
   description,
   ctaText = 'View Projects',
   ctaLink = '#projects',
   avatar,
 }: HeroProps) {
+  const h1Text = headline || name;
   // Check for reduced motion preference
   const prefersReducedMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -107,7 +110,7 @@ export function Hero({
           <motion.div
             variants={avatarVariants}
             animate={floatingAnimation}
-            className="relative h-28 w-28 overflow-hidden rounded-full shadow-lg ring-4 ring-primary/10 sm:h-32 sm:w-32 md:h-40 md:w-40"
+            className="ring-primary/10 relative h-28 w-28 overflow-hidden rounded-full shadow-lg ring-4 sm:h-32 sm:w-32 md:h-40 md:w-40"
             style={{ willChange: 'transform' }}
             role="img"
             aria-label={`${name}'s profile picture`}
@@ -126,26 +129,26 @@ export function Hero({
         {/* Name with gradient */}
         <motion.h1
           variants={itemVariants}
-          className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+          className="from-primary to-primary/60 bg-linear-to-r bg-clip-text text-4xl leading-tight font-bold text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
         >
-          {name}
+          {h1Text}
         </motion.h1>
 
         {/* Tagline */}
         <motion.p
           variants={itemVariants}
-          className="px-4 text-lg font-medium text-foreground sm:text-xl md:text-2xl lg:text-3xl"
+          className="text-foreground px-4 text-lg font-medium sm:text-xl md:text-2xl lg:text-3xl"
         >
           {tagline}
         </motion.p>
 
         {/* Description */}
-        <motion.p
-          variants={itemVariants}
-          className="max-w-2xl px-4 text-base leading-relaxed text-muted-foreground sm:text-lg md:text-lg lg:text-xl"
-        >
-          {description}
-        </motion.p>
+        {/* <motion.p */}
+          {/* variants={itemVariants} */}
+          {/* className="text-muted-foreground max-w-2xl px-4 text-base leading-relaxed sm:text-lg md:text-lg lg:text-xl" */}
+        {/* > */}
+          {/* {description} */}
+        {/* </motion.p> */}
 
         {/* CTA Buttons */}
         <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4">

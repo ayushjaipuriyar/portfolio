@@ -22,6 +22,7 @@ const ConnectFooter = lazy(() =>
 interface HomeWithLoadingProps {
   personalInfo: {
     name: string;
+    headline?: string;
     tagline: string;
     bio: string;
     avatar: string;
@@ -66,6 +67,7 @@ export function HomeWithLoading({ personalInfo, skills, projects }: HomeWithLoad
         <main id="main-content">
           <Hero
             name={personalInfo.name}
+            headline={personalInfo.headline}
             tagline={personalInfo.tagline}
             description={personalInfo.bio}
             ctaText="View My Work"

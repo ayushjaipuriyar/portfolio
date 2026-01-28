@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { GlobalDockNav } from '@/components/navigation/dock-wrapper';
 import { ThemeProvider } from '@/components/theme-provider';
 import { BackgroundBeams } from '@/components/ui/shadcn-io/background-beams';
@@ -123,11 +123,12 @@ export default function RootLayout({
     ].filter(Boolean),
     knowsAbout: portfolioConfig.skills.map((skill) => skill.name),
   };
-
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
   const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
 
   return (
     <html lang="en" suppressHydrationWarning>
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <head>
         <link
           rel="stylesheet"

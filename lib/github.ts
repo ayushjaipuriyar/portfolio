@@ -1,4 +1,5 @@
 import { graphql } from '@octokit/graphql';
+import { slugify } from '@/lib/utils';
 
 const gqlQuery = `
   query($login: String!, $n: Int!) {
@@ -118,6 +119,9 @@ interface AllReposResponse {
 
 export interface Project {
   id: string;
+  slug: string;
+  owner: string;
+  repoName: string;
   title: string;
   description: string;
   image: string;
@@ -144,6 +148,64 @@ function getRepoImageUrl(owner: string, repoName: string, hasPreview: boolean): 
     return `https://raw.githubusercontent.com/${owner}/${repoName}/main/assets/preview.png`;
   }
   return DEFAULT_PROJECT_IMAGE;
+}
+
+async function graphqlWithAuth() {
+  const token = process.env.GITHUB_TOKEN;
+
+  if (!token) {
+    return null;
+  }
+
+  return graphql.defaults({
+    headers: {
+      authorization: `token ${token}`,
+    },
+  });
+}
+
+export async function fetchGitHubReadme(owner: string, repoName: string): Promise<string | null> {
+  const client = await graphqlWithAuth();
+
+  if (!client) {
+    console.warn('⚠️  No GITHUB_TOKEN found. Skipping README fetch.');
+    return null;
+  }
+
+  const readmeQuery = `
+    query($owner: String!, $name: String!, $expression: String!) {
+      repository(owner: $owner, name: $name) {
+        readme: object(expression: $expression) {
+          ... on Blob {
+            text
+          }
+        }
+      }
+    }
+  `;
+
+  const expressions = ['HEAD:README.md', 'HEAD:README.mdx', 'HEAD:readme.md'];
+
+  for (const expression of expressions) {
+    try {
+      const response = await client<{
+        repository: { readme: { text: string } | null };
+      }>(readmeQuery, {
+        owner,
+        name: repoName,
+        expression,
+      });
+
+      if (response.repository.readme?.text) {
+        return response.repository.readme.text;
+      }
+    } catch (error) {
+      console.error('Error fetching README:', error);
+      return null;
+    }
+  }
+
+  return null;
 }
 
 export async function fetchGitHubProjects(): Promise<Project[]> {
@@ -174,10 +236,14 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
       const technologies = repo.languages.nodes.map((lang) => lang.name);
       const tags = repo.repositoryTopics.nodes.map((t) => t.topic.name);
       const hasPreview = repo.previewImage !== null;
+      const title = formatTitle(repo.name);
 
       return {
-        id: `project-${index + 1}`,
-        title: formatTitle(repo.name),
+        id: `${repo.owner.login}/${repo.name}`,
+        slug: slugify(repo.name),
+        owner: repo.owner.login,
+        repoName: repo.name,
+        title,
         description: repo.description || 'No description available',
         image: getRepoImageUrl(repo.owner.login, repo.name, hasPreview),
         technologies: technologies.slice(0, 5),
@@ -225,10 +291,14 @@ export async function fetchAllGitHubProjects(): Promise<Project[]> {
       const technologies = repo.languages.nodes.map((lang) => lang.name);
       const tags = repo.repositoryTopics.nodes.map((t) => t.topic.name);
       const hasPreview = repo.previewImage !== null;
+      const title = formatTitle(repo.name);
 
       return {
-        id: repo.name,
-        title: formatTitle(repo.name),
+        id: `${repo.owner.login}/${repo.name}`,
+        slug: slugify(repo.name),
+        owner: repo.owner.login,
+        repoName: repo.name,
+        title,
         description: repo.description || 'No description available',
         image: getRepoImageUrl(repo.owner.login, repo.name, hasPreview),
         technologies: technologies,
@@ -246,4 +316,17 @@ export async function fetchAllGitHubProjects(): Promise<Project[]> {
     console.error('Error fetching all GitHub projects:', error);
     return [];
   }
+}
+
+export async function fetchGitHubProjectBySlug(slug: string): Promise<Project | null> {
+  const projects = await fetchAllGitHubProjects();
+  if (projects.length === 0) {
+    return null;
+  }
+
+  return (
+    projects.find((project) => project.slug === slug) ||
+    projects.find((project) => slugify(project.repoName) === slug) ||
+    null
+  );
 }

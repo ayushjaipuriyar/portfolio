@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import { AllProjectsView } from '@/components/sections/all-projects';
-import portfolioConfig from '@/config/portfolio';
 import { fetchAllGitHubProjects } from '@/lib/github';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ayushjaipuriyar.com';
@@ -24,19 +23,30 @@ export default async function ProjectsPage() {
   // Fetch all projects from GitHub
   const githubProjects = await fetchAllGitHubProjects();
 
-  // Use GitHub projects if available, otherwise fallback to config
-  const projects = githubProjects.length > 0 ? githubProjects : portfolioConfig.projects;
-
   // Sort by recently updated
-  const sortedProjects = [...projects].sort((a, b) => {
-    if (!a.updatedAt || !b.updatedAt) return 0;
-    return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+  const sortedProjects = [...githubProjects].sort((a, b) => {
+    const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+    const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+    return bTime - aTime;
   });
 
   return (
     <main className="min-h-screen">
       <Suspense fallback={<div>Loading...</div>}>
-        <AllProjectsView projects={sortedProjects} />
+        {sortedProjects.length > 0 ? (
+          <AllProjectsView projects={sortedProjects} />
+        ) : (
+          <section className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center gap-4 px-6 text-center">
+            <h1 className="text-3xl font-semibold">Projects unavailable</h1>
+            <p className="text-muted-foreground">
+              This page pulls live project data from GitHub. Set <strong>GITHUB_TOKEN</strong> (and
+              optionally <strong>GITHUB_USERNAME</strong>) to enable fetching.
+            </p>
+            <p className="text-muted-foreground text-sm">
+              Once the token is configured, reload this page to see GitHub projects.
+            </p>
+          </section>
+        )}
       </Suspense>
     </main>
   );

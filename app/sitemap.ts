@@ -1,7 +1,15 @@
 import { MetadataRoute } from 'next';
+import { fetchAllGitHubProjects } from '@/lib/github';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ayushjaipuriyar.com';
+  const githubProjects = await fetchAllGitHubProjects();
+  const projectEntries: MetadataRoute.Sitemap = githubProjects.map((project) => ({
+    url: `${siteUrl}/projects/${project.slug}`,
+    lastModified: project.updatedAt ? new Date(project.updatedAt) : new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
 
   return [
     {
@@ -22,5 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      url: `${siteUrl}/resume`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    ...projectEntries,
   ];
 }

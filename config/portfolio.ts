@@ -12,10 +12,12 @@ export interface SocialLinks {
 
 export interface PersonalInfo {
   name: string;
+  headline?: string;
   tagline: string;
   bio: string;
   avatar: string;
   email: string;
+  location?: string;
   social: SocialLinks;
 }
 
@@ -27,6 +29,7 @@ export interface Skill {
 
 export interface Project {
   id: string;
+  slug: string;
   title: string;
   description: string;
   image: string;
@@ -37,6 +40,14 @@ export interface Project {
   featured?: boolean;
   updatedAt?: string;
   stargazerCount?: number;
+  caseStudy?: ProjectCaseStudy;
+}
+
+export interface ProjectCaseStudy {
+  problem: string;
+  solution: string;
+  approach: string[];
+  results: string[];
 }
 
 export interface Experience {
@@ -85,16 +96,18 @@ export interface PortfolioConfig {
 const portfolioConfig: PortfolioConfig = {
   personal: {
     name: 'Ayush Jaipuriyar',
+    headline: 'Ayush Jaipuriyar',
     tagline: 'Full Stack Software Engineer',
     bio: 'Full stack Software Engineer specializing in scalable, fault-tolerant distributed systems and APIs. Experienced with AWS, Docker, Kubernetes and CI/CD. Currently pursuing M.Sc. in Computer Science at University of Glasgow. Previously reduced API latency by 38% and automated deployments from 3 hours to 10 minutes at Healthtrip.',
     avatar: '/images/avatar.jpg',
     email: 'ayushjaipuriyar21@gmail.com',
+    location: 'Glasgow, UK (Open to Remote/India)',
     social: {
       github: 'https://github.com/ayushjaipuriyar',
       linkedin: 'https://linkedin.com/in/ayushjaipuriyar',
       twitter: '',
       meetingLink: 'https://cal.com/ayushjaipuriyar/15min',
-      resumeLink: '/api/resume',
+      resumeLink: '/resume',
     },
   },
 
@@ -251,6 +264,7 @@ const portfolioConfig: PortfolioConfig = {
   projects: [
     {
       id: 'project-1',
+      slug: 'leetcode-mcp-server',
       title: 'LeetCode MCP Server',
       description:
         'Developed an MCP server with 15+ tools and 5 endpoints, delivering median responses <150ms and real-time submission streaming that cut manual testing overhead 80%.',
@@ -258,9 +272,26 @@ const portfolioConfig: PortfolioConfig = {
       technologies: ['Node.js', 'TypeScript', 'Express', 'WebSocket'],
       githubUrl: 'https://github.com/ayushjaipuriyar/leetcode-mcpserver',
       featured: true,
+      caseStudy: {
+        problem:
+          'Manual testing and debugging LeetCode workflows was slow and noisy without real-time telemetry or structured tooling.',
+        solution:
+          'Built a dedicated MCP server exposing 15+ tools and 5 endpoints to automate submissions, stream results, and standardize problem workflows.',
+        approach: [
+          'Designed a low-latency request pipeline with WebSocket streaming for live submissions.',
+          'Implemented caching and retries to keep median response time under 150ms.',
+          'Added structured tooling to cover test execution, results parsing, and analytics.',
+        ],
+        results: [
+          'Cut manual testing effort by 80% through automated runs.',
+          'Achieved sub-150ms median response time for core endpoints.',
+          'Improved developer feedback loops with real-time streaming.',
+        ],
+      },
     },
     {
       id: 'project-2',
+      slug: 'near-rt-ric-ml-traffic-detection',
       title: 'Near-RT RIC ML-based Malicious Traffic Detection',
       description:
         'Built an ML pipeline on Near-RT RIC with xApps for real-time traffic analysis. Classifiers achieved 67-73% accuracy and F1 up to 76% for detecting malicious network traffic.',
@@ -268,9 +299,26 @@ const portfolioConfig: PortfolioConfig = {
       technologies: ['Python', 'PyTorch', 'Open RAN', 'Machine Learning'],
       githubUrl: 'https://github.com/ayushjaipuriyar/ric-xapps-malicious-detection',
       featured: true,
+      caseStudy: {
+        problem:
+          'Open RAN traffic monitoring lacked real-time detection of malicious patterns at the Near-RT RIC layer.',
+        solution:
+          'Delivered an ML-based detection pipeline with xApps that classifies traffic and flags malicious activity in real time.',
+        approach: [
+          'Built a data ingestion and feature engineering pipeline for Near-RT RIC telemetry.',
+          'Trained multiple classifiers in PyTorch and benchmarked accuracy/F1.',
+          'Deployed xApps to enable low-latency inference in production-like conditions.',
+        ],
+        results: [
+          'Achieved 67-73% accuracy with F1 up to 76%.',
+          'Enabled real-time malicious traffic detection in the RIC loop.',
+          'Provided repeatable evaluation metrics for future model iterations.',
+        ],
+      },
     },
     {
       id: 'project-3',
+      slug: 'segmentor-m3u8-downloader',
       title: 'Segmentor - M3U8 Stream Downloader',
       description:
         'Created a Python CLI to download 100+ .m3u8 segments in parallel and assemble streams via ffmpeg in ≤60s, improving throughput 10x and reliability ~70%.',
@@ -278,9 +326,26 @@ const portfolioConfig: PortfolioConfig = {
       technologies: ['Python', 'ffmpeg', 'tkinter', 'Async I/O'],
       githubUrl: 'https://github.com/ayushjaipuriyar/animepahe-dl',
       featured: true,
+      caseStudy: {
+        problem:
+          'Downloading segmented HLS streams was slow and unreliable, especially when fetching 100+ segments serially.',
+        solution:
+          'Built Segmentor, a parallel M3U8 downloader that batches segments and assembles outputs with FFmpeg.',
+        approach: [
+          'Implemented async I/O for concurrent segment downloads.',
+          'Added retry + integrity checks to improve reliability.',
+          'Automated FFmpeg assembly for a one-command CLI workflow.',
+        ],
+        results: [
+          '10x faster end-to-end download time.',
+          'Completed stream assembly in ≤60 seconds for 100+ segments.',
+          'Improved reliability by ~70% in flaky network conditions.',
+        ],
+      },
     },
     {
       id: 'project-4',
+      slug: 'vantage-linux-utility',
       title: 'Vantage-14are05 Linux Utility',
       description:
         'Produced a Linux utility exposing ACPI performance and battery tuning controls with profile switching, reducing battery discharge 20-30% and attracting community contributions.',
@@ -288,24 +353,74 @@ const portfolioConfig: PortfolioConfig = {
       technologies: ['Linux', 'ACPI', 'Bash', 'System Programming'],
       githubUrl: 'https://github.com/ayushjaipuriyar/vantage-14are05',
       featured: false,
+      caseStudy: {
+        problem:
+          'Lenovo Vantage features weren’t available on Linux, making battery and performance tuning manual and inconsistent.',
+        solution:
+          'Created a CLI utility exposing ACPI controls with simple profile switching for battery/performance modes.',
+        approach: [
+          'Reverse-engineered relevant ACPI interfaces for power profiles.',
+          'Built a lightweight CLI and shell automation scripts.',
+          'Documented profiles for community adoption and contributions.',
+        ],
+        results: [
+          'Reduced battery discharge by 20-30% in power-save mode.',
+          'Enabled reliable profile switching on Linux machines.',
+          'Attracted community contributions to extend device support.',
+        ],
+      },
     },
     {
       id: 'project-5',
+      slug: 'partner-self-serve-platform',
       title: 'Partner Self-Serve Platform',
       description:
         'Built a self-serve partner platform with Kong API Gateway, OAuth2, and Redis, automating onboarding from 4 days to 10 minutes and increasing partner acquisition by 60%.',
       image: '/images/projects/partner-platform.jpg',
       technologies: ['NestJS', 'Kong', 'OAuth2', 'Redis', 'Docker'],
       featured: false,
+      caseStudy: {
+        problem:
+          'Partner onboarding was slow (4+ days) and required manual approvals across multiple systems.',
+        solution:
+          'Delivered a self-serve platform with automated OAuth2 provisioning and API gateway integration.',
+        approach: [
+          'Orchestrated onboarding flows with NestJS and Kong API Gateway.',
+          'Implemented Redis-backed state and verification checks.',
+          'Automated approval workflows with audit trails.',
+        ],
+        results: [
+          'Reduced onboarding time from 4 days to 10 minutes.',
+          'Increased partner acquisition by 60%.',
+          'Standardized access control with OAuth2 + Kong.',
+        ],
+      },
     },
     {
       id: 'project-6',
+      slug: 'multilingual-translation-system',
       title: 'Multilingual Translation System',
       description:
         'Engineered a fault-tolerant backend translation system supporting 9 languages and 5,000+ entries/day, delivering 100% uptime and boosting global engagement by 70%.',
       image: '/images/projects/translation.jpg',
       technologies: ['NestJS', 'Redis', 'Elasticsearch', 'Microservices'],
       featured: false,
+      caseStudy: {
+        problem:
+          'Global content updates were slow and inconsistent, limiting engagement across non-English markets.',
+        solution:
+          'Built a fault-tolerant translation pipeline with caching and multilingual search support.',
+        approach: [
+          'Implemented async translation ingestion with Redis queues.',
+          'Added Elasticsearch for multilingual and fuzzy search.',
+          'Designed retry logic and monitoring for high reliability.',
+        ],
+        results: [
+          'Supported 9 languages with 5,000+ entries/day.',
+          'Maintained 100% uptime for translation services.',
+          'Improved global engagement by 70%.',
+        ],
+      },
     },
   ],
 
@@ -329,6 +444,10 @@ const portfolioConfig: PortfolioConfig = {
       'devops',
       'portfolio',
       'ayush jaipuriyar',
+      'glasgow',
+      'uk',
+      'india',
+      'remote',
     ],
     ogImage: '/images/og-image.jpg',
   },

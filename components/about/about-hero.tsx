@@ -7,6 +7,14 @@ import { Particles } from '@/components/ui/shadcn-io/particles/index';
 import { getConnections } from '@/config/connections';
 import type { PersonalInfo } from '@/config/portfolio';
 
+
+
+
+
+
+
+
+
 interface AboutHeroProps {
   personalInfo: PersonalInfo;
 }
@@ -88,7 +96,7 @@ export function AboutHero({ personalInfo }: AboutHeroProps) {
               </div>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <MapPin className="h-5 w-5 text-primary" />
-                <span>Glasgow, UK</span>
+                <span>{personalInfo.location || 'Remote'}</span>
               </div>
             </div>
           </div>

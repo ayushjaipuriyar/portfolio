@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 const url =
-  'https://github.com/ayushjaipuriyar/resume/releases/latest/download/Ayush_Jaipuriyar.pdf';
+  'https://github.com/ayushjaipuriyar/resume/releases/latest/download/Ayush_Jaipuriyar_Resume.pdf';
 
 export async function GET() {
   try {

@@ -234,6 +234,23 @@ const portfolioConfig: PortfolioConfig = {
       ],
       technologies: ['NestJS', 'React', 'MongoDB', 'OpenAI', 'Stripe', 'AWS', 'Docker', 'GitHub Actions'],
     },
+    {
+      id: 'exp-4',
+      company: 'Microsoft',
+      position: "Mentee at Engage'22",
+      location: 'Remote',
+      startDate: '2022-05',
+      endDate: '2022-07',
+      description:
+        "Built a full-stack movie recommendation system as part of Microsoft's Engage mentorship program.",
+      achievements: [
+        'Built a recommendation system using Python to predict movies that users may be interested in based on their past movie ratings',
+        'Obtained the dataset for the project from MovieLens for training the recommendation algorithm',
+        'Programmed an interactive web page using ReactJS to acquire movie ratings from users and exhibit the recommended movies',
+        'Utilized Python as the backend programming language with designated endpoints for receiving and transmitting requests for getting recommended movies and submitting movie ratings',
+      ],
+      technologies: ['Python', 'ReactJS', 'Machine Learning', 'MovieLens', 'REST API'],
+    },
   ],
 
   projects: [
